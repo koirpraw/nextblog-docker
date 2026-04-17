@@ -1,5 +1,15 @@
 # Quick Reference Guide
 
+## Important: Amazon Linux Version
+
+**These scripts are designed for Amazon Linux 2023**
+
+- ✅ Amazon Linux 2023 AMI (AL2023) - Uses `dnf` package manager
+- ✅ Example AMI: `ami-098e39bafa7e7303d` (Amazon Linux 2023.11.20260413.0 x86_64 HVM kernel-6.1)
+- ❌ Not compatible with Amazon Linux 2 (AL2) - uses `amazon-linux-extras` which doesn't exist in AL2023
+
+If you're using Amazon Linux 2, you'll need to modify the scripts to use `amazon-linux-extras install nginx1` instead of `dnf install nginx`.
+
 ## Prerequisites Checklist
 
 - [ ] AWS Account with appropriate permissions
@@ -7,6 +17,7 @@
 - [ ] GitHub repository URL
 - [ ] VPC with public and private subnets in at least 2 AZs
 - [ ] NAT Gateway (for private subnets)
+- [ ] Using Amazon Linux 2023 AMI
 
 ## Quick Commands
 
@@ -29,7 +40,7 @@ git clone https://github.com/YOUR_USERNAME/markdown-editor-blog.git .
 ssh -i your-key.pem ec2-user@instance-ip
 
 # Download and run setup script
-wget https://raw.githubusercontent.com/YOUR_USERNAME/markdown-editor-blog/main/deployment/setup-golden-ami.sh
+wget https://raw.githubusercontent.com/koirpraw/markdown-editor-blog/main/deployment/setup-golden-ami.sh
 chmod +x setup-golden-ami.sh
 ./setup-golden-ami.sh
 

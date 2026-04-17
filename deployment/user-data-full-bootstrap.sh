@@ -7,11 +7,11 @@ exec 2>&1
 
 echo "===== Starting Full Bootstrap at $(date) ====="
 
-# Update system
-sudo yum update -y
+# Update system (Amazon Linux 2023)
+sudo dnf update -y
 
 # Install Git
-sudo yum install -y git
+sudo dnf install -y git
 
 # Install NVM and Node.js
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
@@ -24,8 +24,8 @@ nvm alias default 20
 # Install PM2 globally
 npm install -g pm2
 
-# Install NGINX
-sudo amazon-linux-extras install nginx1 -y
+# Install NGINX (Amazon Linux 2023 - nginx is in default repos)
+sudo dnf install nginx -y
 sudo systemctl enable nginx
 
 # Create application directory

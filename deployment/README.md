@@ -2,6 +2,14 @@
 
 This guide explains how to deploy the Next.js application in an AWS Auto Scaling Group (ASG) behind an Application Load Balancer (ALB).
 
+## Important: Amazon Linux Version
+
+**⚠️ These scripts are designed for Amazon Linux 2023 (AL2023)**
+
+- Use AMI: `Amazon Linux 2023 AMI` (e.g., `ami-098e39bafa7e7303d`)
+- Package manager: `dnf` (not `yum` with `amazon-linux-extras`)
+- If you're using Amazon Linux 2, modify the scripts to use `amazon-linux-extras install nginx1` instead of `dnf install nginx`
+
 ## Architecture Overview
 
 ```
@@ -56,7 +64,7 @@ Internet → ALB → Target Group → ASG → EC2 Instances (NGINX → Next.js)
 
 ### Step 2: Create Golden AMI
 
-1. Launch a fresh EC2 instance (Amazon Linux 2)
+1. Launch a fresh EC2 instance (Amazon Linux 2023, t2.micro or t3.micro)
 
 2. SSH into the instance:
    ```bash

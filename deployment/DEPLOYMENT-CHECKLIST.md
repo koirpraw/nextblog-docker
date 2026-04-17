@@ -2,6 +2,12 @@
 
 Use this checklist to track your progress through the deployment.
 
+## Important: Amazon Linux Version
+
+**⚠️ These scripts require Amazon Linux 2023 (AL2023)**
+- Use AMI: `Amazon Linux 2023 AMI` (e.g., `ami-098e39bafa7e7303d`)
+- Not compatible with Amazon Linux 2 without modifications
+
 ## Pre-Deployment
 
 - [ ] Have AWS account with appropriate permissions
@@ -18,7 +24,7 @@ Use this checklist to track your progress through the deployment.
 
 ## Phase 1: Create Golden AMI
 
-- [ ] Launch base EC2 instance (Amazon Linux 2, t2.micro)
+- [ ] Launch base EC2 instance (Amazon Linux 2023, t2.micro or t3.micro)
 - [ ] Connect security group with SSH access from your IP
 - [ ] SSH into the instance
 - [ ] Update repository URL in `deployment/setup-golden-ami.sh`
