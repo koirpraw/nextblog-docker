@@ -350,6 +350,19 @@ ssh -i your-key.pem ec2-user@instance-ip
 3. Check NGINX config: `sudo nginx -t`
 4. Check NGINX logs: `sudo tail -f /var/log/nginx/error.log`
 
+### Issue: Build hangs at "Linting and Checking Validity of Types"
+**Cause:** T2.micro (1GB RAM) struggles with TypeScript and ESLint during build
+
+**Solutions:**
+1. **Quick fix:** Disable in `next.config.ts`:
+   ```typescript
+   typescript: { ignoreBuildErrors: true },
+   eslint: { ignoreDuringBuilds: true },
+   ```
+2. Add 1GB swap space (see below)
+3. Use t3.micro or t3.small instead
+4. Build locally or in CI/CD, deploy pre-built artifacts
+
 ### Issue: Slow instance launch time
 **Solutions:**
 1. Use Golden AMI approach instead of full bootstrap

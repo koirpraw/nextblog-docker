@@ -189,5 +189,15 @@ EOF
 
 sudo chmod +x /opt/user-data-bootstrap.sh
 
+# Optional: Add swap space for t2.micro instances (1GB swap)
+# Uncomment the following lines if you experience memory issues during build:
+# echo "Setting up swap space..."
+# sudo dd if=/dev/zero of=/swapfile bs=128M count=8
+# sudo chmod 600 /swapfile
+# sudo mkswap /swapfile
+# sudo swapon /swapfile
+# echo '/swapfile swap swap defaults 0 0' | sudo tee -a /etc/fstab
+# echo "Swap space configured"
+
 echo "Golden AMI setup complete!"
 echo "You can now create an AMI from this instance"

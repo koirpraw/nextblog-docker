@@ -293,14 +293,34 @@ Outbound Rules:
 
 ### High Memory Usage on t2.micro
 
-Add swap space in user data:
-```bash
-sudo dd if=/dev/zero of=/swapfile bs=128M count=8
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-echo '/swapfile swap swap defaults 0 0' | sudo tee -a /etc/fstab
-```
+**Symptom:** Build hangs at "Linting and Checking Validity of Types" for 10+ minutes
+
+**Cause:** TypeScript type checking and ESLint are memory-intensive on t2.micro (1GB RAM)
+
+**Solutions:**
+
+1. **Quick Fix (Recommended for testing):** Disable type checking and linting during build in `next.config.ts`:
+   ```typescript
+   typescript: {
+     ignoreBuildErrors: true,
+   },
+   eslint: {
+     ignoreDuringBuilds: true,
+   },
+   ```
+
+2. **Add swap space** to provide more virtual memory:
+   ```bash
+   sudo dd if=/dev/zero of=/swapfile bs=128M count=8
+   sudo chmod 600 /swapfile
+   sudo mkswap /swapfile
+   sudo swapon /swapfile
+   echo '/swapfile swap swap defaults 0 0' | sudo tee -a /etc/fstab
+   ```
+
+3. **Use larger instance** (t3.micro or t3.small) for better performance
+
+4. **Build in CI/CD** and deploy pre-built artifacts instead of building on instances
 
 ## Updating the Application
 
