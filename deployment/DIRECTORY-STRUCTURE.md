@@ -68,10 +68,14 @@ If you have old references to files, here's the mapping:
 | File | Purpose | When to Use |
 |------|---------|-------------|
 | `README.md` | Overview of Docker deployment | First read |
+| `IMPROVED-WORKFLOW.md` | ⭐ NEW! Pre-built image workflow | Recommended approach |
+| `COMPARISON.md` | Compare build vs pull approaches | Decision making |
 | `STEP-BY-STEP.md` | Action plan with exact commands | During deployment |
 | `DOCKER-DEPLOYMENT-GUIDE.md` | Comprehensive reference | Deep dive, troubleshooting |
 | `DOCKER-QUICK-REFERENCE.md` | Quick commands cheat sheet | Daily operations |
-| `setup-golden-ami-docker.sh` | Creates Golden AMI | Once, or when updating AMI |
+| `build-and-push.sh` | Build and push to Docker Hub | Before creating AMI |
+| `setup-golden-ami-docker-pull.sh` | ⭐ Pull pre-built image (fast!) | Recommended for AMI |
+| `setup-golden-ami-docker.sh` | Build image on instance | Alternative approach |
 | `user-data-docker.sh` | Starts app on instance boot | Used in Launch Template |
 | `setup-aws-infrastructure.sh` | Creates AWS resources | Once, or when rebuilding infra |
 

@@ -2,30 +2,80 @@
 
 This directory contains all scripts and documentation for deploying the Next.js blog application on AWS using Docker containers in an Auto Scaling Group behind an Application Load Balancer.
 
+## ⚡ Two Deployment Approaches
+
+### 🚀 Approach 1: Pre-built Images (RECOMMENDED) ⭐
+
+**Pull pre-built Docker images from Docker Hub**
+
+- ✅ **Fastest**: Golden AMI creation in 3-5 minutes
+- ✅ **Most Reliable**: No build failures on instance
+- ✅ **CI/CD Ready**: Build in pipeline, deploy anywhere
+- ✅ **Easy Updates**: Just pull new tag, no AMI rebuild needed
+
+**Start here**: **[QUICKSTART-PREBUILT.md](QUICKSTART-PREBUILT.md)** ⭐
+
+**Documentation**:
+- [QUICKSTART-PREBUILT.md](QUICKSTART-PREBUILT.md) - Quick start guide (15-25 min to production)
+- [IMPROVED-WORKFLOW.md](IMPROVED-WORKFLOW.md) - Complete workflow guide
+- [COMPARISON.md](COMPARISON.md) - Why this is better
+
+**Key files**:
+- `build-and-push.sh` - Build locally and push to Docker Hub
+- `setup-golden-ami-docker-pull.sh` - Pull pre-built image (fast!)
+
+### 🔨 Approach 2: Build on Instance (Traditional)
+
+**Build Docker image on EC2 instance during Golden AMI creation**
+
+- Takes 10-15 minutes
+- Uses more memory (risky on t3.micro)
+- Good if you can't use public Docker registry
+
+**Key files**:
+- `setup-golden-ami-docker.sh` - Build image on instance
+
 ## 📁 Directory Contents
 
 ### Documentation
-- **[STEP-BY-STEP.md](STEP-BY-STEP.md)** - Start here! Complete walkthrough with actionable steps
+- **[IMPROVED-WORKFLOW.md](IMPROVED-WORKFLOW.md)** - ⭐ NEW! Faster workflow using pre-built images
+- **[STEP-BY-STEP.md](STEP-BY-STEP.md)** - Complete walkthrough (build on instance approach)
 - **[DOCKER-DEPLOYMENT-GUIDE.md](DOCKER-DEPLOYMENT-GUIDE.md)** - Comprehensive reference guide
 - **[DOCKER-QUICK-REFERENCE.md](DOCKER-QUICK-REFERENCE.md)** - Quick commands and troubleshooting
 
 ### Scripts
-- **[setup-golden-ami-docker.sh](setup-golden-ami-docker.sh)** - Creates Golden AMI with Docker and pre-built image
-- **[user-data-docker.sh](user-data-docker.sh)** - User data script for Launch Template (starts application on boot)
-- **[setup-aws-infrastructure.sh](setup-aws-infrastructure.sh)** - Automated AWS infrastructure setup (ALB, Target Group, Launch Template, ASG)
+
+**Pre-built Image Approach (Recommended)**:
+- **[build-and-push.sh](build-and-push.sh)** - Build locally and push to Docker Hub
+- **[setup-golden-ami-docker-pull.sh](setup-golden-ami-docker-pull.sh)** - Pull pre-built image (fast!)
+
+**Build on Instance Approach**:
+- **[setup-golden-ami-docker.sh](setup-golden-ami-docker.sh)** - Build Docker image on instance
+
+**Common**:
+- **[user-data-docker.sh](user-data-docker.sh)** - User data script for Launch Template
+- **[setup-aws-infrastructure.sh](setup-aws-infrastructure.sh)** - AWS infrastructure setup
 
 ## 🚀 Quick Start
 
-```bash
-# 1. Read the step-by-step guide
-cat STEP-BY-STEP.md
+### Recommended: Pre-built Image Workflow
 
-# 2. Update repository URL in setup-golden-ami-docker.sh (line 75)
-# 3. Create Golden AMI following STEP-BY-STEP.md Phase 1
-# 4. Update AMI ID in setup-aws-infrastructure.sh (line 11)
-# 5. Run infrastructure setup
+```bash
+# 1. Build and push to Docker Hub (on your local machine)
+cd deployment/docker
+nano build-and-push.sh  # Update DOCKER_USERNAME
+./build-and-push.sh
+
+# 2. Create Golden AMI (on EC2 instance)
+nano setup-golden-ami-docker-pull.sh  # Update DOCKER_IMAGE
+sudo ./setup-golden-ami-docker-pull.sh
+
+# 3. Create AWS infrastructure (on your local machine)
+nano setup-aws-infrastructure.sh  # Update AMI_ID
 ./setup-aws-infrastructure.sh
 ```
+
+See [IMPROVED-WORKFLOW.md](IMPROVED-WORKFLOW.md) for complete guide.
 
 ## 🏗️ Architecture
 

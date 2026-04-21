@@ -25,14 +25,28 @@ This project is a personal practice project used to learn AWS Development with N
 
 **Current implementation uses Docker with Golden AMI for optimized launch times (~2-3 minutes).**
 
+### ⚡ NEW: Improved Workflow (Recommended)
+
+Use **pre-built Docker images** for faster, more reliable deployment:
+- Golden AMI creation: 3-5 minutes (vs 10-15 min)
+- No build failures on instance
+- CI/CD ready
+- Easy updates without rebuilding AMI
+
+**Start here**: [deployment/docker/IMPROVED-WORKFLOW.md](deployment/docker/IMPROVED-WORKFLOW.md)
+
 ### Quick Start
 
-See the complete guide: **[deployment/docker/DOCKER-DEPLOYMENT-GUIDE.md](deployment/docker/DOCKER-DEPLOYMENT-GUIDE.md)**
+**Option 1: Pre-built Images (Faster)**
+1. Build and push Docker image to Docker Hub
+2. Create Golden AMI (pulls image, 3-5 min)
+3. Deploy infrastructure
 
-**TL;DR:**
-1. Create Golden AMI with Docker and pre-built image
-2. Set up ALB, Target Group, Launch Template, and ASG
-3. Deploy with ~3 minute instance launch time
+**Option 2: Build on Instance (Traditional)**
+1. Create Golden AMI (builds image, 10-15 min)
+2. Deploy infrastructure
+
+See: [deployment/docker/DOCKER-DEPLOYMENT-GUIDE.md](deployment/docker/DOCKER-DEPLOYMENT-GUIDE.md)
 
 **Quick Reference:** [deployment/docker/DOCKER-QUICK-REFERENCE.md](deployment/docker/DOCKER-QUICK-REFERENCE.md)
 
