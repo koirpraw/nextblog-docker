@@ -3,6 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
 
+  // Enable standalone output for optimized Docker builds
+  output: "standalone",
+
   // Skip type checking and linting during build (for faster builds on low-resource instances)
   typescript: {
     ignoreBuildErrors: true,

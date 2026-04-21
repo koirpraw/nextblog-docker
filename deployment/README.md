@@ -2,6 +2,56 @@
 
 This guide explains how to deploy the Next.js application in an AWS Auto Scaling Group (ASG) behind an Application Load Balancer (ALB).
 
+## 📁 Directory Structure
+
+This deployment directory contains two different approaches:
+
+### 🐳 Docker-based Deployment (Recommended)
+**Location**: [`docker/`](docker/)
+
+Modern containerized deployment using Docker with optimized Golden AMI approach.
+
+- ✅ **Faster launch time**: ~2-3 minutes
+- ✅ **Easier to maintain**: Single Docker image
+- ✅ **Consistent environment**: Docker ensures uniformity
+- ✅ **Smaller footprint**: Optimized multi-stage builds
+
+**Start here**: [docker/STEP-BY-STEP.md](docker/STEP-BY-STEP.md)
+
+**Key files**:
+- `docker/setup-golden-ami-docker.sh` - Creates Golden AMI with Docker
+- `docker/user-data-docker.sh` - Launch template user-data
+- `docker/setup-aws-infrastructure.sh` - Automated AWS setup
+
+### 📦 Node.js/PM2 Deployment (Traditional)
+**Location**: Current directory
+
+Traditional deployment using Node.js, PM2, and NGINX directly on EC2.
+
+- Launch time: ~5-10 minutes
+- Requires more system dependencies
+- Good for learning AWS fundamentals
+
+**Key files**:
+- `setup-golden-ami.sh` - Creates Golden AMI with Node.js/PM2
+- `user-data-golden-ami.sh` - Launch template user-data
+- `user-data-full-bootstrap.sh` - Full bootstrap (no Golden AMI)
+
+---
+
+## 🚀 Which Approach Should You Use?
+
+| Factor | Docker (Recommended) | Node.js/PM2 |
+|--------|---------------------|-------------|
+| Launch Speed | ⚡ 2-3 min | 🐌 5-10 min |
+| Complexity | Simple | Moderate |
+| Maintenance | Easy updates | Manual dependency management |
+| Use Case | Production, modern | Learning, legacy |
+
+**For this project, use the Docker approach**: [docker/](docker/)
+
+---
+
 ## Important: Amazon Linux Version
 
 **⚠️ These scripts are designed for Amazon Linux 2023 (AL2023)**
