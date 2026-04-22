@@ -178,7 +178,7 @@ echo "Starting Next.js container..."
 sudo docker run -d \
     --name nextjs-blog \
     --restart unless-stopped \
-    -p 3000:3000 \
+    -p 80:3000 \
     -v /opt/nextjs-app/content:/app/content \
     nextjs-blog:latest
 

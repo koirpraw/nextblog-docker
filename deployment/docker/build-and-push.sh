@@ -3,6 +3,10 @@ set -e
 
 # Build and Push Docker Image to Docker Hub
 # Run this locally or in CI/CD before creating Golden AMI
+#
+# IMPORTANT: This script builds for linux/amd64 platform to ensure
+# compatibility with EC2 t3.micro/t2.micro instances (AMD64 architecture).
+# If building on Apple Silicon Mac (M1/M2/M3), Docker will cross-compile.
 
 echo "=========================================="
 echo "Building and Pushing Docker Image"
@@ -20,7 +24,8 @@ echo ""
 
 # Build the Docker image
 echo "Step 1: Building Docker image..."
-docker build -t $FULL_IMAGE_NAME .
+echo "Building for linux/amd64 platform (EC2 compatibility)..."
+docker build --platform linux/amd64 -t $FULL_IMAGE_NAME .
 
 echo "✓ Image built successfully"
 echo ""

@@ -36,9 +36,11 @@ chmod +x build-and-push.sh
 ```
 
 **What this does**:
-- Builds optimized Docker image
+- Builds optimized Docker image **for linux/amd64** (EC2 compatible)
 - Logs you into Docker Hub
 - Pushes image to Docker Hub
+
+> **Note for Mac Users**: If you're on Apple Silicon (M1/M2/M3), Docker will cross-compile for AMD64. This ensures compatibility with EC2 t3.micro/t2.micro instances.
 
 **Time**: 5-7 minutes
 
@@ -302,6 +304,24 @@ sudo docker pull your-username/nextjs-blog:latest
 ---
 
 ## 🆘 Troubleshooting
+
+### Platform Mismatch Error?
+
+```
+WARNING: The requested image's platform (linux/arm64) does not match 
+the detected host platform (linux/amd64/v4)
+```
+
+**Solution**: Rebuild the image with the correct platform:
+```bash
+# In build-and-push.sh, ensure it includes:
+docker build --platform linux/amd64 -t $FULL_IMAGE_NAME .
+
+# Then rebuild and push
+./deployment/docker/build-and-push.sh
+```
+
+**Note**: This happens when building on Apple Silicon Macs. The script now includes `--platform linux/amd64` by default.
 
 ### Image Pull Failed?
 

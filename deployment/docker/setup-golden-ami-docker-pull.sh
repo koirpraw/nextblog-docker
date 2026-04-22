@@ -81,9 +81,13 @@ upstream nextjs_upstream {
     keepalive 64;
 }
 
+# server {
+#     listen 80;
+#     server_name _;
 server {
-    listen 80;
-    server_name _;
+  listen 80 default_server;
+  listen [::]:80 default_server;
+  server_name _;
 
     # Security headers
     add_header X-Frame-Options "SAMEORIGIN" always;
